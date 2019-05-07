@@ -1,5 +1,5 @@
 class Card
-  # attr_reader :suit, :rank
+  attr_reader :suit, :rank
 
   def initialize(suit:, rank:)
     @suit = suit
@@ -19,5 +19,14 @@ RSpec.describe 'a playing card' do
 
   it 'has a rank' do
     raise unless Card.new(suit: :spades, rank: 4).rank == 4
+  end
+
+  describe 'a jack' do
+    it 'ranks higher than a 10' do
+      lower = Card.new(suit: :spades, rank: 10)
+      higher = Card.new(suit: :spades, rank: :jack)
+
+      raise unless higher.rank > lower.rank
+    end
   end
 end
