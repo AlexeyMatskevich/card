@@ -25,6 +25,20 @@ describe 'a playing card' do
     raise unless subject == other
   end
 
+  it 'is not equal to a card of differing suit' do
+    subject = card(suit: :spades, rank: 4)
+    other = card(suit: :heart, rank: 4)
+
+    raise unless subject != other
+  end
+
+  it 'is not equal to a card of differing rank' do
+    subject = card(suit: :spades, rank: 4)
+    other = card(suit: :spades, rank: 5)
+
+    raise unless subject != other
+  end
+
   describe 'a jack' do
     it 'ranks higher than a 10' do
       lower = card(rank: 10)
