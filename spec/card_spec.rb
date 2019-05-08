@@ -18,6 +18,13 @@ describe 'a playing card' do
     raise unless card(suit: :spades, rank: 4).rank == 4
   end
 
+  it 'is equal to itself' do
+    subject = card(suit: :spades, rank: 4)
+    other = card(suit: :spades, rank: 4)
+
+    raise unless subject == other
+  end
+
   describe 'a jack' do
     it 'ranks higher than a 10' do
       lower = card(rank: 10)
