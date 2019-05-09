@@ -20,20 +20,18 @@ describe 'a playing card' do
   end
 
   context 'equality' do
-    def subject
-      @subject ||= card(suit: :spades, rank: 4)
-    end
+    subject { card(suit: :spades, rank: 4) }
 
-    def other
-      @other ||= card(suit: :spades, rank: 4)
-    end
+    describe 'comparing against self' do
+      let(:other) { card(suit: :spades, rank: 4) }
 
-    it 'is equal to itself' do
-      raise unless subject == other
-    end
+      it 'is equal to itself' do
+        raise unless subject == other
+      end
 
-    it 'is hash equal to itself' do
-      raise unless Set.new([subject, other]).size == 1
+      it 'is hash equal to itself' do
+        raise unless Set.new([subject, other]).size == 1
+      end
     end
 
     shared_examples 'an unequal card' do
@@ -47,45 +45,41 @@ describe 'a playing card' do
     end
 
     describe 'comparing to a card of different suit' do
-      def other
-        @other ||= card(suit: :heart, rank: 4)
-      end
+      let(:other) { card(suit: :heart, rank: 4) }
 
       it_behaves_like 'an unequal card'
     end
 
     describe 'comparing to a card of different rank' do
-      def other
-        @other ||= card(suit: :spades, rank: 5)
-      end
+      let(:other) { card(suit: :spades, rank: 5) }
 
       it_behaves_like 'an unequal card'
     end
   end
 
   describe 'a jack' do
-    it 'ranks higher than a 10' do
-      lower  = card(rank: 10)
-      higher = card(rank: :jack)
+    let(:lower) { card(rank: 10) }
+    let(:higher) { card(rank: :jack) }
 
+    it 'ranks higher than a 10' do
       raise unless higher.rank > lower.rank
     end
   end
 
   describe 'a queen' do
-    it 'ranks higher than a jack' do
-      lower  = card(rank: :jack)
-      higher = card(rank: :queen)
+    let(:lower) { card(rank: :jack) }
+    let(:higher) { card(rank: :queen) }
 
+    it 'ranks higher than a jack' do
       raise unless higher.rank > lower.rank
     end
   end
 
   describe 'a kink' do
-    it 'ranks higher than a queen' do
-      lower  = card(rank: :queen)
-      higher = card(rank: :king)
+    let(:lower) { card(rank: :queen) }
+    let(:higher) { card(rank: :king) }
 
+    it 'ranks higher than a queen' do
       raise unless higher.rank > lower.rank
     end
   end
