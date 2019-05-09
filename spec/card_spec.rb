@@ -36,11 +36,7 @@ describe 'a playing card' do
       raise unless Set.new([subject, other]).size == 1
     end
 
-    describe 'comparing to a card of different suit' do
-      def other
-        @other ||= card(suit: :heart, rank: 4)
-      end
-
+    shared_examples 'an unequal card' do
       it 'is not equal' do
         raise unless subject != other
       end
@@ -50,18 +46,20 @@ describe 'a playing card' do
       end
     end
 
+    describe 'comparing to a card of different suit' do
+      def other
+        @other ||= card(suit: :heart, rank: 4)
+      end
+
+      it_behaves_like 'an unequal card'
+    end
+
     describe 'comparing to a card of different rank' do
       def other
         @other ||= card(suit: :spades, rank: 5)
       end
 
-      it 'is not equal to a card of differing rank' do
-        raise unless subject != other
-      end
-
-      it 'is not hash equal to a card of differing rank' do
-        raise unless Set.new([subject, other]).size == 2
-      end
+      it_behaves_like 'an unequal card'
     end
   end
 
