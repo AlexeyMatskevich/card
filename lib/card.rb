@@ -20,4 +20,8 @@ class Card
               rank
             end
   end
+
+  def ==(other)
+    rank == other.rank && suit == other.suit
+  end
 end
