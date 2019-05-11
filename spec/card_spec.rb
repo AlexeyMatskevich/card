@@ -12,46 +12,49 @@ describe 'a playing card' do
   end
 
   it 'has a suit' do
-    raise unless card(suit: :spades, rank: 4).suit == :spades
+    expect(card(suit: :spades, rank: 4).suit).to eq :spades
   end
 
   it 'has a rank' do
-    raise unless card(suit: :spades, rank: 4).rank == 4
+    expect(card(suit: :spades, rank: 4).rank).to eq 4
   end
 
   context 'equality' do
     subject { card(suit: :spades, rank: 4) }
 
     describe 'comparing against self' do
-      let(:other) { card(suit: :spades, rank: 4) }
+      let(:another) { card(suit: :spades, rank: 4) }
+      let(:set) { Set.new([subject, another]) }
 
       it 'is equal to itself' do
-        raise unless subject == other
+        expect(subject).to eq another
       end
 
       it 'is hash equal to itself' do
-        raise unless Set.new([subject, other]).size == 1
+        expect(set.size).to eq 1
       end
     end
 
     shared_examples 'an unequal card' do
+      let(:set) { Set.new([subject, another]) }
+
       it 'is not equal' do
-        raise unless subject != other
+        expect(subject).not_to eq another
       end
 
       it 'is not hash equal' do
-        raise unless Set.new([subject, other]).size == 2
+        expect(set.size).to eq 2
       end
     end
 
     describe 'comparing to a card of different suit' do
-      let(:other) { card(suit: :heart, rank: 4) }
+      let(:another) { card(suit: :heart, rank: 4) }
 
       it_behaves_like 'an unequal card'
     end
 
     describe 'comparing to a card of different rank' do
-      let(:other) { card(suit: :spades, rank: 5) }
+      let(:another) { card(suit: :spades, rank: 5) }
 
       it_behaves_like 'an unequal card'
     end
@@ -62,7 +65,7 @@ describe 'a playing card' do
     let(:higher) { card(rank: :jack) }
 
     it 'ranks higher than a 10' do
-      raise unless higher.rank > lower.rank
+      expect(higher.rank).to be > lower.rank
     end
   end
 
@@ -71,7 +74,7 @@ describe 'a playing card' do
     let(:higher) { card(rank: :queen) }
 
     it 'ranks higher than a jack' do
-      raise unless higher.rank > lower.rank
+      expect(higher.rank).to be > lower.rank
     end
   end
 
@@ -80,7 +83,7 @@ describe 'a playing card' do
     let(:higher) { card(rank: :king) }
 
     it 'ranks higher than a queen' do
-      raise unless higher.rank > lower.rank
+      expect(higher.rank).to be > lower.rank
     end
   end
 end
