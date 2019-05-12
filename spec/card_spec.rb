@@ -86,4 +86,18 @@ describe 'a playing card' do
       expect(higher.rank).to be > lower.rank
     end
   end
+
+  describe '.from_string', :aggregate_failures do
+    def self.it_parses(string, as: as)
+      it "parses #{string}" do
+        expect(Card.from_sting(string)).to eq as
+      end
+    end
+
+    it_parses '7H', as: Card.build(:hearts, 7)
+    it_parses '10S', as: Card.build(:spades, 10)
+    it_parses 'JC', as: Card.build(:clubs, :jack)
+    it_parses 'QC', as: Card.build(:clubs, :queen)
+    it_parses 'KC', as: Card.build(:clubs, :king)
+  end
 end
